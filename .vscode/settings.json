@@ -1,0 +1,14 @@
+{
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	"lsp": {
+    "tailwindcss-language-server": {
+      "settings": {
+        "includeLanguages": {
+          "svelte": "html"
+        }
+      }
+    }
+  }
+}
