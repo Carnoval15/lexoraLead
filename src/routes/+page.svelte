@@ -15,21 +15,21 @@
 			<h1 class="text-3xl font-bold tracking-tight">
 				Lexora Leaderboard
 			</h1>
-			<!-- <p class="text-sm text-muted-foreground">
-				Last update: {new Date().toLocaleDateString()}
-			</p> -->
+			<p class="text-sm text-muted-foreground">
+				Last update: {data.last_update ? new Date(data.last_update).toLocaleString() : 'Unknown'}
+			</p>
 		</div>
 
 		<!-- Card -->
 		<div class="bg-card border border-border rounded-lg shadow-sm p-6">
-			{#if data.players.length > 0}
+			<div class="overflow-x-auto">
 				<table class="w-full text-sm text-left rtl:text-right">
 					<thead class="bg-muted">
 						<tr>
 							<th class="px-4 py-3 font-medium text-foreground">Rank</th>
 							<th class="px-4 py-3 font-medium text-foreground">Username</th>
 							<th class="px-4 py-3 font-medium text-foreground">Steam ID</th>
-							<th class="px-4 py-3 font-medium text-foreground text-right">Playtime</th>
+							<th class="px-4 py-3 font-medium text-foreground text-right">Score</th>
 						</tr>
 					</thead>
 					<tbody class="divide-y divide-border">
@@ -46,11 +46,12 @@
 						{/each}
 					</tbody>
 				</table>
-			{:else}
+			</div>
+			<!-- {#else}
 				<p class="text-center py-8 text-muted-foreground">
 					No players found.
 				</p>
-			{/if}
+			{/else} -->
 		</div>
 	</div>
 </div>
