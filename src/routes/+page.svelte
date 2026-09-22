@@ -2,11 +2,11 @@
 	let { data } = $props();
 	import * as Table from '$lib/components/ui/table/index.js';
 
-	function getRankBadge(rank) {
-		if (rank === 1) return 'bg-primary text-primary-foreground';
-		if (rank === 2) return 'bg-secondary text-secondary-foreground';
-		if (rank === 3) return 'bg-accent text-accent-foreground';
-		return 'bg-muted text-muted-foreground';
+	function getRankBadge(index) {
+		if (index === 0) return 'text-yellow-500 font-bold';
+		if (index === 1) return 'text-gray-400 font-bold';
+		if (index === 2) return 'text-amber-700 font-bold';
+		return 'text-muted-foreground';
 	}
 </script>
 
@@ -20,35 +20,41 @@
 		</div>
 
 		<!-- Card -->
-		<Table.Root class="rounded-lg">
-			<Table.Header>
-				<Table.Row class="font-bold">
-					<!-- <Table.Head class="w-[30px]">Rank</Table.Head> -->
-					<Table.Head class="w-2">Rank</Table.Head>
-					<Table.Head>Username</Table.Head>
-					<Table.Head>Steam ID</Table.Head>
-					<Table.Head class="text-end">Score</Table.Head>
-				</Table.Row>
-			</Table.Header>
-			<Table.Body>
-				{#each data.players as player, i}
-					<Table.Row>
-						<Table.Cell class="flex items-center gap-2 px-4 py-3 font-medium text-foreground"
-							><span class="{getRankBadge(i + 1)} rounded-full px-2 py-0.5 text-xs font-medium"
-								>{i + 1}</span
-							>
-							<span class="sr-only">Rank {i + 1}</span></Table.Cell
-						>
-						<Table.Cell class="px-4 py-3">{player.username}</Table.Cell>
-						<Table.Cell class="px-4 py-3 text-muted-foreground">{player.steam64}</Table.Cell>
-						<Table.Cell class="px-4 py-3 text-right font-semibold">{player.score}</Table.Cell>
+		<div class="rounded-lg border">
+			<Table.Root>
+				<Table.Header>
+					<Table.Row class="font-bold">
+						<!-- <Table.Head class="w-[30px]">Rank</Table.Head> -->
+						<Table.Head class="w-16 text-center">Rank</Table.Head>
+						<Table.Head>Username</Table.Head>
+						<Table.Head class="text-right">Score</Table.Head>
+						<Table.Head class="hidden sm:table-cell">Steam ID</Table.Head>
 					</Table.Row>
-				{/each}
-			</Table.Body>
-		</Table.Root>
+				</Table.Header>
+				<Table.Body>
+					{#each data.players as player, i}
+						<Table.Row>
+							<Table.Cell class="w-16 text-center hover:bg-muted/50"
+								><span class="text-center align-middle {getRankBadge(i)}"
+									>{i + 1}</span
+								>
+								<span class="sr-only">Rank {i + 1}</span></Table.Cell
+							>
+							<Table.Cell class="font-medium">{player.username}</Table.Cell>
+							<Table.Cell class="text-right font-semibold"
+								>{player.score.toLocaleString()}</Table.Cell
+							>
+							<Table.Cell class="hidden font-mono text-sm text-muted-foreground sm:table-cell"
+								>{player.steam64}</Table.Cell
+							>
+						</Table.Row>
+					{/each}
+				</Table.Body>
+			</Table.Root>
+		</div>
 
 		<!-- <div class="rounded-lg border border-border bg-card p-6 shadow-sm"> -->
-			<!-- <div class="overflow-x-auto">
+		<!-- <div class="overflow-x-auto">
 				<table class="w-full text-left text-sm rtl:text-right">
 					<thead class="bg-muted">
 						<tr>
@@ -75,7 +81,7 @@
 					</tbody>
 				</table>
 			</div> -->
-			<!-- {#else}
+		<!-- {#else}
 				<p class="text-center py-8 text-muted-foreground">
 					No players found.
 				</p>
